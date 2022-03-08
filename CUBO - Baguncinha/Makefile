@@ -1,16 +1,21 @@
-LIBS=`pkg-config --cflags --libs allegro-5 allegro_acodec-5 allegro_audio-5 allegro_color-5 allegro_dialog-5 allegro_font-5 allegro_image-5 allegro_main-5 allegro_memfile-5 allegro_physfs-5 allegro_primitives-5 allegro_ttf-5` -lm
+ALLEGRO_VERSION=5.0.10
+MINGW_VERSION=4.7.0
+FOLDER=C:
 
-INCLUDES=-I/usr/include/allegro5/
+FOLDER_NAME=\allegro-$(ALLEGRO_VERSION)-mingw-$(MINGW_VERSION)
+PATH_ALLEGRO=$(FOLDER)$(FOLDER_NAME)
+LIB_ALLEGRO=\lib\liballegro-$(ALLEGRO_VERSION)-monolith-mt.a
+INCLUDE_ALLEGRO=\include
 
 all: cubo.exe
 	
 cubo.exe: cubo.o
-	gcc $(INCLUDES) -o cubo.exe cubo.o $(LIBS)
+	gcc -o cubo.exe cubo.o $(PATH_ALLEGRO)$(LIB_ALLEGRO)
 
 cubo.o: cubo.c
-	gcc $(INCLUDES) -c cubo.c	
+	gcc -I $(PATH_ALLEGRO)$(INCLUDE_ALLEGRO) -c cubo.c
 	
 	
 clean:
-	rm cubo.o
-	rm cubo.exe
+	del cubo.o
+	del cubo.exe
