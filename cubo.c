@@ -371,7 +371,7 @@ void desenhaCirculoMonstro(ALLEGRO_DISPLAY *d){
 }
 
 //modulo que desenha o hub
-void desenhaHub(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void desenhaHub(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     if(modojogo==TUTORIAL){
         //inicializa e desenha o retangulo do tutorial
         Retangulo menu;
@@ -493,7 +493,7 @@ void desenhaHub(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_
 }
 
 //modulo que desenha o cenario
-void desenhaCenario(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void desenhaCenario(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     if(modojogo==MENU_INICIAL || modojogo==TUTORIAL){
         al_set_target_bitmap(al_get_backbuffer(d));
         al_draw_bitmap(menucenario, 0, 0, 0);
@@ -511,7 +511,7 @@ void desenhaCenario(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fo
         al_draw_bitmap(monstros[heroi.inim_enc].sprite, monstros[heroi.inim_enc].cordbat.x, monstros[heroi.inim_enc].cordbat.y, 0);
         al_draw_bitmap(heroi.batalha, heroi.cordbat.x, heroi.cordbat.y, 0);
     }
-    desenhaHub(d, fonte_30, fonte_32);
+    desenhaHub(d, fonte_30, fonte_15);
 }
 
 //modulo que verifica se a pontuacao atual e um novo recorde
@@ -665,7 +665,7 @@ void ataque(float *vida_alvo, float *ataque, float modificador){
 }
 
 //modulo de animacao de ataque (DEVE SER MODIFICADO)
-void ataqueAnimacao(int eheroi, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void ataqueAnimacao(int eheroi, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     //variaveis do ataque do heroi
     float ci = 0;
     ci = heroi.cordbat.x;
@@ -676,18 +676,18 @@ void ataqueAnimacao(int eheroi, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLE
         for(float i = heroi.cordbat.x; i > SCREEN_W/6 + monstros[heroi.inim_enc].tamanho/2 ; i = heroi.cordbat.x){
             heroi.cordbat.x -= vel;
             vel += vel;
-            desenhaCenario(d, fonte_30, fonte_32);
+            desenhaCenario(d, fonte_30, fonte_15);
             al_rest(0.02);
         }
         ataque(&monstros[heroi.inim_enc].vida, &heroi.ataque, heroi.modificador);
         for(float i = heroi.cordbat.x; i < ci; i = heroi.cordbat.x){
             heroi.cordbat.x += (5*heroi.velocidade)*heroi.modificador;
-            desenhaCenario(d, fonte_30, fonte_32);
+            desenhaCenario(d, fonte_30, fonte_15);
             al_rest(0.0001);
         }
     }else if(eheroi == NAO){
         for(float i = monstros[heroi.inim_enc].projetil.cordte.x; i < heroi.cordbat.x + 4*monstros[heroi.inim_enc].projetil.tamanho; i = monstros[heroi.inim_enc].projetil.cordte.x){
-            desenhaCenario(d, fonte_30, fonte_32);
+            desenhaCenario(d, fonte_30, fonte_15);
             monstros[heroi.inim_enc].projetil.cordte.y -= 2*sin(monstros[heroi.inim_enc].projetil.cordte.x/150.0);
             monstros[heroi.inim_enc].projetil.cordte.x += 6.5;
             al_rest(0.0000000005);
@@ -697,14 +697,14 @@ void ataqueAnimacao(int eheroi, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLE
     //a cordenada da estrutura
     monstros[heroi.inim_enc].projetil.cordte.x = monstros[heroi.inim_enc].cordbat.x + monstros[heroi.inim_enc].tamanho - 2*monstros[heroi.inim_enc].projetil.tamanho;
     monstros[heroi.inim_enc].projetil.cordte.y = monstros[heroi.inim_enc].cordbat.y;
-    desenhaCenario(d, fonte_30, fonte_32);
+    desenhaCenario(d, fonte_30, fonte_15);
     heroi.cordbat.x = ci;
 }
 
 //modulo que realiza a acao do monstro
-void acaoMonstro(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void acaoMonstro(ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     printf("acaoMonstro\n");
-    ataqueAnimacao(NAO, d, fonte_30, fonte_32);
+    ataqueAnimacao(NAO, d, fonte_30, fonte_15);
 }
 
 //modulo que realiza a fuga mudando o modo de jogo e a coordenada do heroi
@@ -854,10 +854,10 @@ int tentativaDeFuga(){
 }
 
 //modulo que verifica o tipo da acao do heroi e a realiza
-void acaoHeroi(int tipo, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void acaoHeroi(int tipo, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     if (tipo == ATAQUE){
         heroi.modificador = 1;
-        ataqueAnimacao(SIM, d, fonte_30, fonte_32);
+        ataqueAnimacao(SIM, d, fonte_30, fonte_15);
     }else if(tipo == ESPECIAL){
         //cria o modificador e atribui a ele um valor aleatorio deacordo com a raridade
         float modificador = 0;
@@ -869,7 +869,7 @@ void acaoHeroi(int tipo, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FON
         }else if(modificador==RARO){
             heroi.modificador = 3;
         }
-        ataqueAnimacao(SIM, d, fonte_30, fonte_32);
+        ataqueAnimacao(SIM, d, fonte_30, fonte_15);
     }else if (tipo == FUGIR){
         if(tentativaDeFuga()){
             fuga();
@@ -892,7 +892,7 @@ void verificaFimDaBatalha(){
 }
 
 //modulo que efetua o modo de exploração
-void modoMenuInicial(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void modoMenuInicial(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     while (modojogo == MENU_INICIAL){
         ALLEGRO_EVENT ev;
         al_wait_for_event(ev_queue, &ev);
@@ -943,7 +943,7 @@ void modoMenuInicial(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_
             }
         }else if(ev.type == ALLEGRO_EVENT_TIMER){
             //desenha o cenario do jogo no display
-            desenhaCenario(d, fonte_30, fonte_32);
+            desenhaCenario(d, fonte_30, fonte_15);
         }else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             jogando = NAO;
             modojogo = DERROTA;
@@ -973,7 +973,7 @@ void modoTutorial(ALLEGRO_EVENT_QUEUE *ev_queue){
 }
 
 //modulo que efetua o modo de exploração
-void modoExploracao(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void modoExploracao(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     ALLEGRO_EVENT ev;
     al_wait_for_event(ev_queue, &ev);
 
@@ -1033,7 +1033,7 @@ void modoExploracao(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_F
                 break;
         }
     }else if(ev.type == ALLEGRO_EVENT_TIMER){
-        desenhaCenario(d, fonte_30, fonte_32);
+        desenhaCenario(d, fonte_30, fonte_15);
     }else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
         jogando = NAO;
         modojogo = DERROTA;
@@ -1054,7 +1054,7 @@ void modoExploracao(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_F
 }
 
 //modulo que efetua o modo batalha
-void modoBatalha(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_32){
+void modoBatalha(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT *fonte_30, ALLEGRO_FONT *fonte_15){
     while (modojogo == BATALHA){
         ALLEGRO_EVENT ev;
         al_wait_for_event(ev_queue, &ev);
@@ -1089,11 +1089,11 @@ void modoBatalha(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT
                     break;
 
                 case ALLEGRO_KEY_ENTER:
-                    acaoHeroi(opcaomenu.tipo, d, fonte_30, fonte_32);
+                    acaoHeroi(opcaomenu.tipo, d, fonte_30, fonte_15);
                     verificaFimDaBatalha();
 
                     if(monstros[heroi.inim_enc].vida>0 && heroi.estado != FUGA){
-                        acaoMonstro(d, fonte_30, fonte_32);
+                        acaoMonstro(d, fonte_30, fonte_15);
                     }
                     verificaFimDaBatalha();
 
@@ -1102,7 +1102,7 @@ void modoBatalha(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT
                     break;
             }  
         }else if (ev.type == ALLEGRO_EVENT_TIMER){
-            desenhaCenario(d, fonte_30, fonte_32);
+            desenhaCenario(d, fonte_30, fonte_15);
         }else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             jogando = NAO;
             modojogo = DERROTA;
@@ -1114,39 +1114,34 @@ void modoBatalha(ALLEGRO_EVENT_QUEUE *ev_queue, ALLEGRO_DISPLAY *d, ALLEGRO_FONT
 
 //------------------------------------------- main -------------------------------------------
 int main(int argc, char **argv){
-
     //define a seed do rand
     srand(time(NULL));
 
-    //declaração do display, queue de eventos e do timer
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
     ALLEGRO_TIMER *timer = NULL;
 
     //----------------------- rotinas de inicializacao ---------------------------------------
     
-    //cria e em seguida verifica se o allegro foi inicializado
+    //inicializa e verifica se os itens necessarios foram inicializados
     al_init();
     if(!al_init()){
         fprintf(stderr, "failed to initialize allegro!\n");
         return -1;
     }
 
-    //inicializa o modulo que permite carregar imagens no jogo
     al_init_image_addon();
     if(!al_init_image_addon()){
         fprintf(stderr, "failed to initialize image_addon!\n");
         return -1;
     }
-    
-    //cria e em seguida verifica se o timer foi criado
+
     timer = al_create_timer(1.0 / FPS);
     if(!timer){
         fprintf(stderr, "failed to create timer!\n");
         return -1;
     }
 
-    //cria e em seguida verifica se o display foi criado
     display = al_create_display(SCREEN_W, SCREEN_H);
     if(!display){
         fprintf(stderr, "failed to create display!\n");
@@ -1154,7 +1149,6 @@ int main(int argc, char **argv){
         return -1;
     }
 
-    //cria e em seguida verifica se a lista de eventos foi criado
     event_queue = al_create_event_queue();
     if(!event_queue){
         fprintf(stderr, "failed to create event_queue!\n");
@@ -1163,13 +1157,9 @@ int main(int argc, char **argv){
         return -1;
     }
 
-    //declara o teclado para o programa
 	al_install_keyboard();
-    //inicializa o modulo allegro que cria formas primitivas
     al_init_primitives_addon();
-    //inicializa o modulo allegro que carrega as fontes
     al_init_font_addon();
-	//inicializa o modulo allegro que entende arquivos tff de fontes
     al_init_ttf_addon();
 
     //declara o que a lista de eventos vai entender como um evento
@@ -1177,29 +1167,20 @@ int main(int argc, char **argv){
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
    	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-	//carrega o arquivo arial.ttf da fonte Arial e define que sera usado o tamanho 32 (segundo parametro)
+	//carrega a fonte PressStart2P e define que sera usado o tamanho 30
     ALLEGRO_FONT *fonte_30 = al_load_font("Fonte/PressStart2P.ttf", 30, 1);
 
-    //carrega o arquivo arial.ttf da fonte Arial e define que sera usado o tamanho 32 (segundo parametro)
-    ALLEGRO_FONT *fonte_32 = al_load_font("Fonte/PressStart2P.ttf", 15, 1);
+    //carrega a fonte PressStart2P e define que sera usado o tamanho 15
+    ALLEGRO_FONT *fonte_15 = al_load_font("Fonte/PressStart2P.ttf", 15, 1);
 
-    //inicializa todas as variaveis globais
     initGlobalVars();
-
-    //reinicializa o display
     al_flip_display();
-
-    //inicializa o timer
     al_start_timer(timer);
     //----------------------- fim das rotinas de inicializacao ---------------------------------------
 
-    //cria um loop infinito que verificar os eventos e rodar o jogo
     while(jogando){
-
         //verifica o modo de jogo
         if(modojogo == MENU_INICIAL){
-            
-            //muda a opcaomenu
             opcaomenu.tipo = JOGAR;
     
             //inicializa as coordenadas da opcaomenu
@@ -1207,19 +1188,16 @@ int main(int argc, char **argv){
             opcaomenu.cordte.y = SCREEN_H/2 - SCREEN_H/13.5;
 
             //efetua o modo de jogo atual
-            modoMenuInicial(event_queue, display, fonte_30, fonte_32);
+            modoMenuInicial(event_queue, display, fonte_30, fonte_15);
         }else if(modojogo == TUTORIAL){
-            //desenha o tutorial na tela
-            desenhaHub(display, fonte_30, fonte_32);
+            desenhaHub(display, fonte_30, fonte_15);
             
-            //efetua o modo tutorial
+            //efetua o modo de jogo atual
             modoTutorial(event_queue);
         }else if(modojogo == EXPLORACAO){
             //efetua o modo de jogo atual
-            modoExploracao(event_queue, display, fonte_30, fonte_32);
+            modoExploracao(event_queue, display, fonte_30, fonte_15);
         }else if(modojogo == BATALHA){
-
-            //muda a opcaomenu
             opcaomenu.tipo = ATAQUE;
 
             //inicializa as coordenadas da opcaomenu
@@ -1227,23 +1205,16 @@ int main(int argc, char **argv){
             opcaomenu.cordte.x = SCREEN_W - SCREEN_W/6 - SCREEN_W/13.5 - 2.2*opcaomenu.tamanho;
 
             //efetua o modo de jogo atual
-            modoBatalha(event_queue, display, fonte_30, fonte_32);
+            modoBatalha(event_queue, display, fonte_30, fonte_15);
         }else if(jogando==SIM && (modojogo == DERROTA || modojogo == VITORIA)){
-            //desenha a tela final
             desenhaFim(display, fonte_30);
-            
-            //define que o jogado nao esta jogando
             jogando = NAO;
         }
-
-    }// fim do while
+    }
 
     //----------------------- rotinas de finalizacao ---------------------------------------
     al_destroy_timer(timer);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
-    //----------------------- fim das rotinas de finalizacao ---------------------------------------
-
     return 0;
 }
-//final do modulo main
