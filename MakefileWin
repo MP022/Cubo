@@ -1,3 +1,5 @@
+#Makefile do Windows
+
 ALLEGRO_VERSION=5.0.10
 MINGW_VERSION=4.7.0
 FOLDER=C:
