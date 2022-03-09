@@ -253,20 +253,20 @@ void criaMonstros(){
             monstros[i].vida = VIDA_INIMIGO_COMUM;
             monstros[i].ataque = ATAQUE_INIMIGO_COMUM;
             monstros[i].pontos = PONTOS_INIMIGO_COMUM;
-            monstros[i].sprite = al_load_bitmap("inimigo_comum.png");
-            monstros[i].projetil.aparencia = al_load_bitmap("projetil.png");
+            monstros[i].sprite = al_load_bitmap("Personagens/inimigo_comum.png");
+            monstros[i].projetil.aparencia = al_load_bitmap("Personagens/projetil.png");
         }else if (monstros[i].tipo==INCOMUM){
             monstros[i].vida = VIDA_INIMIGO_INCOMUM;
             monstros[i].ataque = ATAQUE_INIMIGO_INCOMUM;
             monstros[i].pontos = PONTOS_INIMIGO_INCOMUM;
-            monstros[i].sprite = al_load_bitmap("inimigo_incomum.png");
-            monstros[i].projetil.aparencia = al_load_bitmap("projetil.png");
+            monstros[i].sprite = al_load_bitmap("Personagens/inimigo_incomum.png");
+            monstros[i].projetil.aparencia = al_load_bitmap("Personagens/projetil.png");
         }else if (monstros[i].tipo==RARO){
             monstros[i].vida = VIDA_INIMIGO_RARO;
             monstros[i].ataque = ATAQUE_INIMIGO_RARO;
             monstros[i].pontos = PONTOS_INIMIGO_RARO;
-            monstros[i].sprite = al_load_bitmap("inimigo_raro.png");
-            monstros[i].projetil.aparencia = al_load_bitmap("projetil.png");
+            monstros[i].sprite = al_load_bitmap("Personagens/inimigo_raro.png");
+            monstros[i].projetil.aparencia = al_load_bitmap("Personagens/projetil.png");
         }
     }
 }
@@ -278,55 +278,55 @@ void carregaBitmap(){
    	al_set_target_bitmap(heroi.cima);
  
 	//altera a sprite do heroi
-    heroi.cima = al_load_bitmap("heroi_cima.png");
+    heroi.cima = al_load_bitmap("Personagens/heroi_cima.png");
     
     //avisa o allegro que eu quero modificar as propriedades do heroi
    	al_set_target_bitmap(heroi.direita);
  
 	//altera a sprite do heroi
-    heroi.direita = al_load_bitmap("heroi_direita.png");
+    heroi.direita = al_load_bitmap("Personagens/heroi_direita.png");
     
     //avisa o allegro que eu quero modificar as propriedades do heroi
    	al_set_target_bitmap(heroi.esquerda);
  
 	//altera a sprite do heroi
-    heroi.esquerda = al_load_bitmap("heroi_esquerda.png");
+    heroi.esquerda = al_load_bitmap("Personagens/heroi_esquerda.png");
     
     //avisa o allegro que eu quero modificar as propriedades do heroi
    	al_set_target_bitmap(heroi.baixo);
  
 	//altera a sprite do heroi
-    heroi.baixo = al_load_bitmap("heroi_baixo.png");
+    heroi.baixo = al_load_bitmap("Personagens/heroi_baixo.png");
     
     //avisa o allegro que eu quero modificar as propriedades do heroi
    	al_set_target_bitmap(heroi.batalha);
 
     //carrega a aparencia do heroi em batalha 
-    heroi.batalha = al_load_bitmap("heroi_batalha.png");
+    heroi.batalha = al_load_bitmap("Personagens/heroi_batalha.png");
 
     //avisa o allegro que eu quero modificar as propriedades do menucenario
     al_set_target_bitmap(menucenario);
 
     //carrega a aparencia do menucenario
-    menucenario = al_load_bitmap("menu_cenario.png");
+    menucenario = al_load_bitmap("Cenarios/menu_cenario.png");
 
     //avisa o allegro que eu quero modificar as propriedades da grama
     al_set_target_bitmap(grama.aparencia);
 
     //carrega a aparencia da grama
-    grama.aparencia = al_load_bitmap("grama.png");
+    grama.aparencia = al_load_bitmap("Cenarios/grama.png");
 
     //avisa o allegro que eu quero modificar as propriedades do castelo
    	al_set_target_bitmap(castelo.aparencia);
 
     //altera a aparencia do castelo
-    castelo.aparencia = al_load_bitmap("castelo.png");
+    castelo.aparencia = al_load_bitmap("Cenarios/castelo.png");
 
     //avisa o allegro que eu quero modificar as propriedades da opcaomenu
    	al_set_target_bitmap(opcaomenu.aparencia);
 
     //altera a aparencia da opcaomenu
-    opcaomenu.aparencia = al_load_bitmap("opcaomenu.png");
+    opcaomenu.aparencia = al_load_bitmap("Personagens/opcaomenu.png");
 
 }
 
@@ -1499,10 +1499,10 @@ int main(int argc, char **argv){
    	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
 	//carrega o arquivo arial.ttf da fonte Arial e define que sera usado o tamanho 32 (segundo parametro)
-    ALLEGRO_FONT *fonte_30 = al_load_font("PressStart2P.ttf", 30, 1);
+    ALLEGRO_FONT *fonte_30 = al_load_font("Fonte/PressStart2P.ttf", 30, 1);
 
     //carrega o arquivo arial.ttf da fonte Arial e define que sera usado o tamanho 32 (segundo parametro)
-    ALLEGRO_FONT *fonte_32 = al_load_font("PressStart2P.ttf", 15, 1);
+    ALLEGRO_FONT *fonte_32 = al_load_font("Fonte/PressStart2P.ttf", 15, 1);
 
     //inicializa todas as variaveis globais
     initGlobalVars();
